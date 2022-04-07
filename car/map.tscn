@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://dpiqcjvwlkncv"]
+
+[ext_resource type="PackedScene" uid="uid://ds3am3lby3k2h" path="res://car.tscn" id="1_grkdk"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_q8j6o"]
+size = Vector3(50, 1, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_b7cwr"]
+size = Vector3(50, 1, 50)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_61dlv"]
+sky_energy = 1.83
+ground_curve = 0.00554785
+sun_angle_max = 32.62
+
+[sub_resource type="Sky" id="Sky_ay260"]
+sky_material = SubResource( "ProceduralSkyMaterial_61dlv" )
+
+[sub_resource type="Environment" id="Environment_nwiyx"]
+background_mode = 2
+sky = SubResource( "Sky_ay260" )
+ambient_light_color = Color(1, 1, 1, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource( "BoxMesh_q8j6o" )
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource( "BoxShape3D_b7cwr" )
+
+[node name="car" parent="." instance=ExtResource( "1_grkdk" )]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.49411, 3.81922, -0.935006)
+mass = 400.0
+
+[node name="Camera3D" type="Camera3D" parent="car"]
+transform = Transform3D(1, 0, 0, 0, 0.987743, 0.15609, 0, -0.15609, 0.987743, 0, 1.07665, 2.17626)
+environment = SubResource( "Environment_nwiyx" )
+current = true

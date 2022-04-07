@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://ds3am3lby3k2h"]
+
+[ext_resource type="Script" path="res://car.gd" id="1_viq2q"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_l5pcx"]
+size = Vector3(2, 0.5, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_mes7f"]
+height = 0.125
+radial_segments = 8
+rings = 1
+
+[node name="car" type="RigidDynamicBody3D"]
+script = ExtResource( "1_viq2q" )
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource( "BoxMesh_l5pcx" )
+
+[node name="wheels" type="Node3D" parent="."]
+
+[node name="wheel" type="MeshInstance3D" parent="wheels"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 1, 0, -0.625)
+mesh = SubResource( "CylinderMesh_mes7f" )
+skeleton = NodePath("../..")
+
+[node name="wheel2" type="MeshInstance3D" parent="wheels"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 1, 0, 0.625)
+mesh = SubResource( "CylinderMesh_mes7f" )
+skeleton = NodePath("../..")
+
+[node name="wheel3" type="MeshInstance3D" parent="wheels"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -1, 0, -0.625)
+mesh = SubResource( "CylinderMesh_mes7f" )
+skeleton = NodePath("../..")
+
+[node name="wheel4" type="MeshInstance3D" parent="wheels"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, -1, 0, 0.625)
+mesh = SubResource( "CylinderMesh_mes7f" )
+skeleton = NodePath("../..")
