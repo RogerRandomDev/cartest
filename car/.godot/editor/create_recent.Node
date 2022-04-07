@@ -1,0 +1,8 @@
+MeshInstance3D
+CollisionShape3D
+RigidDynamicBody3D
+SliderJoint3D
+SpringArm3D
+Path3D
+CSGPolygon3D
+StaticBody3D

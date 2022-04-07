@@ -1,6 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dpiqcjvwlkncv"]
+[gd_scene load_steps=10 format=3 uid="uid://dpiqcjvwlkncv"]
 
 [ext_resource type="PackedScene" uid="uid://ds3am3lby3k2h" path="res://car.tscn" id="1_grkdk"]
+[ext_resource type="Texture2D" uid="uid://luntoo7u8k3w" path="res://icon.png" id="1_xatps"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eq3l8"]
+albedo_texture = ExtResource( "1_xatps" )
+uv1_scale = Vector3(32, 32, 32)
 
 [sub_resource type="BoxMesh" id="BoxMesh_q8j6o"]
 size = Vector3(50, 1, 50)
@@ -21,21 +26,45 @@ background_mode = 2
 sky = SubResource( "Sky_ay260" )
 ambient_light_color = Color(1, 1, 1, 1)
 
+[sub_resource type="Curve3D" id="Curve3D_a2623"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -126, 0.5, 9, 0, 0, 0, 0, 0, 0, -95.7345, 0, -52.3639, 0, 0, 0, 0, 0, 0, 48.7376, 0, -73.8316, 0, 0, 0, 0, 0, 0, 166.81, 0, -10.5888, 0, 0, 0, 0, 0, 0, 153, 0.5, 54, 0, 0, 0, 0, 0, 0, 131, 0.5, 70, 0, 0, 0, 0, 0, 0, 110, 0.5, 53, 0, 0, 0, 0, 0, 0, 107, 0.5, 32, 0, 0, 0, 0, 0, 0, 66, 0.5, 3, 0, 0, 0, 0, 0, 0, 34.2323, 0, 26.2545, 0, 0, 0, 0, 0, 0, -2, 0.5, 55, 0, 0, 0, 0, 0, 0, -61, 0.5, 58, 0, 0, 0, 0, 0, 0, -124, 0.5, 14),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+
 [node name="Node3D" type="Node3D"]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+material_override = SubResource( "StandardMaterial3D_eq3l8" )
 mesh = SubResource( "BoxMesh_q8j6o" )
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource( "BoxShape3D_b7cwr" )
 
 [node name="car" parent="." instance=ExtResource( "1_grkdk" )]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.49411, 3.81922, -0.935006)
-mass = 400.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 
 [node name="Camera3D" type="Camera3D" parent="car"]
-transform = Transform3D(1, 0, 0, 0, 0.987743, 0.15609, 0, -0.15609, 0.987743, 0, 1.07665, 2.17626)
+transform = Transform3D(0, 0.440566, -0.89772, 0, 0.89772, 0.440566, 1, 0, 0, -2.04631, 1.02591, 0)
 environment = SubResource( "Environment_nwiyx" )
 current = true
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
+use_collision = true
+polygon = PackedVector2Array(-12, 0, 12, 0, 10, 2, -10, 2)
+mode = 2
+path_node = NodePath("Path3D")
+path_interval_type = 0
+path_interval = 5.0
+path_simplify_angle = 0.0
+path_rotation = 1
+path_local = false
+path_continuous_u = true
+path_u_distance = 2.47
+path_joined = true
+
+[node name="Path3D" type="Path3D" parent="CSGPolygon3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+curve = SubResource( "Curve3D_a2623" )
